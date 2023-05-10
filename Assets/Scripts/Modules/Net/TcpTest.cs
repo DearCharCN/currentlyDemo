@@ -22,21 +22,18 @@ namespace Net
 
         void Start()
         {
-            //tcpServerListener = new TcpServerListener_Old();
-            //tcpClienter = new TcpClienter_Old();
-
-
             TcpServerReader tcpServerReader = new TcpServerReader();
-            Test1(tcpServerReader);
-            //Test2(tcpServerReader);
-            //Test3(tcpServerReader);
+            Test3(tcpServerReader);
         }
 
         private void Test1(TcpServerReader tcpServerReader)
         {
             var data = GetPackage("123");
             List<byte[]> r;
-            tcpServerReader.CheckPkg(null, data, data.Length,out r);
+
+            object tcpClient = new object();
+
+            tcpServerReader.CheckPkg(tcpClient, data, data.Length,out r);
         }
 
         private void Test2(TcpServerReader tcpServerReader)
@@ -47,7 +44,7 @@ namespace Net
             var data = Merage(data1, data2);
 
             List<byte[]> r;
-            tcpServerReader.CheckPkg(null, data, data.Length, out r);
+            tcpServerReader.CheckPkg(new object(), data, data.Length, out r);
         }
 
         private void Test3(TcpServerReader tcpServerReader)
@@ -61,29 +58,68 @@ namespace Net
 
             var data = Merage(data1, data2, data3, data4, data5, data6);
 
-            byte[][] d = SubCount(data,3);
+            byte[][] d = SubCount(data,30);
+
+            object tcpClient = new object();
 
             List<byte[]> r;
             foreach (var b in d)
             {
-                tcpServerReader.CheckPkg(null, b, data.Length, out r);
+                tcpServerReader.CheckPkg(tcpClient, b, b.Length, out r);
+                if(r != null)
+                {
+                    for (int i = 0; i < r.Count; i++)
+                    {
+                        Debug.Log(Encoding.UTF8.GetString(r[i]));
+                    }
+                }
             }
         }
 
 
         byte[][] SubCount(byte[] data, int count)
         {
-            if (data.Length - 1 >= count)
+            if (data.Length - 1 <= count)
                 return null;
             List<byte[]> r = new List<byte[]>();
             r.AddRange(SubRamdom(data));
-            for (int i = 1; i < count; i++)
+            for (int i = 1; i < count - 1; i++)
             {
-                r.Sort((a, b) => a.Length - b.Length);
-                r.AddRange(SubRamdom(r[0]));
-                r.RemoveAt(0);
+                int splitIdx = FindLongst(r);
+                byte[][] sqRes = SubRamdom(r[splitIdx]);
+                r.RemoveAt(splitIdx);
+                InsertRange(r, splitIdx, sqRes);
             }
             return r.ToArray();
+        }
+
+        int FindLongst(List<byte[]> list)
+        {
+            int maxLen = int.MinValue;
+            int maxIdx = -1;
+            for (int i = 0; i < list.Count; i++)
+            {
+                if(list[i].Length > maxLen)
+                {
+                    maxLen = list[i].Length;
+                    maxIdx = i;
+                }
+            }
+            return maxIdx;
+        }
+
+        void InsertRange(List<byte[]> list,int pos, IEnumerable<byte[]> collection)
+        {
+            if(pos == list.Count)
+            {
+                list.AddRange(collection);
+                return;
+            }
+            foreach(var d in collection)
+            {
+                list.Insert(pos,d);
+                ++pos;
+            }
         }
 
         byte[][] SubRamdom(byte[] data)
@@ -136,7 +172,7 @@ namespace Net
             byte[] result = new byte[flag.Length + len.Length + content.Length];
             Array.Copy(flag, 0, result, 0, flag.Length);
             Array.Copy(len, 0, result, flag.Length, len.Length);
-            Array.Copy(result, 0, result, flag.Length + len.Length, result.Length);
+            Array.Copy(content, 0, result, flag.Length + len.Length, content.Length);
             return result;
         }
 
@@ -429,41 +465,42 @@ namespace Net
             }
         }
 
-        public bool CheckPkg(TcpClient tcpClient, byte[] bytes, int length, out List<byte[]> content)
+        public bool CheckPkg(object tcpClient, byte[] bytes, int length, out List<byte[]> content)
         {
             content = null;
-            byte[] conplex = null;
+            byte[] merge = null;
             if (pkgCache.ContainsKey(tcpClient) && pkgCache[tcpClient] != null)
             {
-                conplex = new byte[pkgCache[tcpClient].Length + length];
-                Array.Copy(pkgCache[tcpClient], 0, conplex, 0, pkgCache[tcpClient].Length);
-                Array.Copy(bytes, 0, conplex, pkgCache[tcpClient].Length, length);
+                merge = new byte[pkgCache[tcpClient].Length + length];
+                Array.Copy(pkgCache[tcpClient], 0, merge, 0, pkgCache[tcpClient].Length);
+                Array.Copy(bytes, 0, merge, pkgCache[tcpClient].Length, length);
+                pkgCache[tcpClient] = null;
             }
             else
             {
-                conplex = new byte[length];
-                Array.Copy(bytes, 0, conplex, 0, length);
+                merge = new byte[length];
+                Array.Copy(bytes, 0, merge, 0, length);
             }
-            content = SqlitPkg(tcpClient, conplex);
+            content = SqlitPkg(tcpClient, merge);
             return content != null;
         }
 
-        private List<byte[]> SqlitPkg(TcpClient tcpClient, byte[] data)
+        private List<byte[]> SqlitPkg(object tcpClient, byte[] data)
         {
             return SqlitPkg(tcpClient, data, 0, data.Length);
         }
 
-        private List<byte[]> SqlitPkg(TcpClient tcpClient, byte[] data, int startIdx, int length)
+        private List<byte[]> SqlitPkg(object tcpClient, byte[] data, int startIdx, int length)
         {
-            if (!CheckFlagWithCloseTcp(tcpClient, data, startIdx))
-            {
-                return null;
-            }
-
             int headerLen = (4 + flagByte.Length);
             if (length < headerLen)
             {
                 SaveCachePkg(tcpClient, data, startIdx, length);
+                return null;
+            }
+
+            if (!CheckFlagWithCloseTcp(tcpClient, data, startIdx))
+            {
                 return null;
             }
 
@@ -478,11 +515,17 @@ namespace Net
             {
                 List<byte[]> result = new List<byte[]>();
                 result.Add(Sub(data, startIdx + headerLen, packageLen));
-                var subResult = SqlitPkg(tcpClient, data, startIdx + headerLen + packageLen, length - headerLen - packageLen);
-                if (subResult != null)
+
+                int relativeLen = length - headerLen - packageLen;
+                if(relativeLen > 0)
                 {
-                    result.AddRange(subResult);
+                    var subResult = SqlitPkg(tcpClient, data, startIdx + headerLen + packageLen, relativeLen);
+                    if (subResult != null)
+                    {
+                        result.AddRange(subResult);
+                    }
                 }
+
                 return result;
             }
         }
@@ -499,13 +542,13 @@ namespace Net
             return BitConverter.ToInt32(data, startIdx);
         }
 
-        private bool CheckFlagWithCloseTcp(TcpClient tcpClient, byte[] data, int startIdx)
+        private bool CheckFlagWithCloseTcp(object tcpClient, byte[] data, int startIdx)
         {
             bool condition = CheckFlag(data, startIdx);
             if (!condition)
             {
                 Debug.Log("[Tcp] Flag校验不正确,关闭链接");
-                tcpClient.Close();
+                //tcpClient.Close();
             }
             return condition;
         }
@@ -518,7 +561,7 @@ namespace Net
             return BytesEquals(data, startIdx, flagByte, 0, flagByte.Length);
         }
 
-        private void SaveCachePkg(TcpClient tcpClient, byte[] data, int startIdx, int length)
+        private void SaveCachePkg(object tcpClient, byte[] data, int startIdx, int length)
         {
             if (startIdx + length > data.Length)
                 return;
@@ -528,7 +571,7 @@ namespace Net
             pkgCache[tcpClient] = cache;
         }
 
-        Dictionary<TcpClient, byte[]> pkgCache = new Dictionary<TcpClient, byte[]>();
+        Dictionary<object, byte[]> pkgCache = new Dictionary<object, byte[]>();
 
         private bool BytesEquals(byte[] a, int aStartIdx, byte[] b, int bStartIdx, int length)
         {
