@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{156C2728-705E-41B2-9B72-0E65E4DE477D}" SchemaVersion="110">
+	<Events>
+		<WorkUnit Name="Default Work Unit" ID="{156C2728-705E-41B2-9B72-0E65E4DE477D}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Play_Test" ID="{B3C24C73-B60C-4CF7-9206-5AEA8E5FB16A}">
+					<ChildrenList>
+						<Action Name="" ID="{BC4680C5-3EB2-4856-BA54-602BE1A60306}" ShortID="958639276">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="DSGNMisc_SYNTH-Fast Process_B00M_CMCK" ID="{39B4EE59-2B99-4DA5-B81B-8789C8ADAEC3}" WorkUnitID="{EAA8605F-1BA2-42D7-A2C1-8EDFD4F8D59A}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

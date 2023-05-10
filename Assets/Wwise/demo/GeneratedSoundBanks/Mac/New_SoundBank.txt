@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	3187507146	Play_Test			\Default Work Unit\Play_Test	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	243047916	DSGNMisc_SYNTH-Fast Process_B00M_CMCK	F:\unity projects\demo\Assets\Wwise\demo\.cache\Mac\SFX\WWISEInput\DSGNMisc_SYNTH-Fast Process_B00M_CMCK_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\WWISEInput\DSGNMisc_SYNTH-Fast Process_B00M_CMCK		1451936
+

@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{EAA8605F-1BA2-42D7-A2C1-8EDFD4F8D59A}" SchemaVersion="110">
+	<AudioObjects>
+		<WorkUnit Name="Default Work Unit" ID="{EAA8605F-1BA2-42D7-A2C1-8EDFD4F8D59A}" PersistMode="Standalone">
+			<ChildrenList>
+				<Folder Name="WWISEInput" ID="{E0B9386F-1B74-4457-A2A1-E02F31D2AFD0}" ShortID="617383801">
+					<ChildrenList>
+						<Sound Name="DSGNMisc_SYNTH-Fast Process_B00M_CMCK" ID="{39B4EE59-2B99-4DA5-B81B-8789C8ADAEC3}" ShortID="502021213">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4046FAEA-AD8B-4C98-86B5-54EA55A1E4D8}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A6C5CC46-401C-4964-B657-9D65D8D1357F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="DSGNMisc_SYNTH-Fast Process_B00M_CMCK" ID="{C7D329E4-3624-48FB-B983-283319F12CEE}">
+									<Language>SFX</Language>
+									<AudioFile>WWISEInput\DSGNMisc_SYNTH-Fast Process_B00M_CMCK.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="243047916"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="DSGNMisc_SYNTH-Fast Process_B00M_CMCK" ID="{C7D329E4-3624-48FB-B983-283319F12CEE}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="OBJTape_ORGANIC-Tape Tear Tonal Very Short_B00M_CMCK" ID="{BADD1FAA-85C0-478C-80DA-2AED148EE57B}" ShortID="711864602">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4046FAEA-AD8B-4C98-86B5-54EA55A1E4D8}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A6C5CC46-401C-4964-B657-9D65D8D1357F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="OBJTape_ORGANIC-Tape Tear Tonal Very Short_B00M_CMCK" ID="{D595B8AF-5FDB-4B1F-BD42-2A5A028CF331}">
+									<Language>SFX</Language>
+									<AudioFile>WWISEInput\OBJTape_ORGANIC-Tape Tear Tonal Very Short_B00M_CMCK.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="795186553"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="OBJTape_ORGANIC-Tape Tear Tonal Very Short_B00M_CMCK" ID="{D595B8AF-5FDB-4B1F-BD42-2A5A028CF331}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="WHSH_ZAP-Cotton Stripe Snap_B00M_CMCK" ID="{3FAB8318-2C38-44B1-A4AD-6C64FC36CA3B}" ShortID="329257171">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4046FAEA-AD8B-4C98-86B5-54EA55A1E4D8}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A6C5CC46-401C-4964-B657-9D65D8D1357F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="WHSH_ZAP-Cotton Stripe Snap_B00M_CMCK" ID="{E30FA107-85CC-4A6B-9F57-7402181C710E}">
+									<Language>SFX</Language>
+									<AudioFile>WWISEInput\WHSH_ZAP-Cotton Stripe Snap_B00M_CMCK.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="280606851"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="WHSH_ZAP-Cotton Stripe Snap_B00M_CMCK" ID="{E30FA107-85CC-4A6B-9F57-7402181C710E}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="WHSH_ZAP-Drag Nylon Belt Impact_B00M_CMCK" ID="{A708D05B-7C2A-4D48-AC4C-B80826B62F4B}" ShortID="77609843">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4046FAEA-AD8B-4C98-86B5-54EA55A1E4D8}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A6C5CC46-401C-4964-B657-9D65D8D1357F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="WHSH_ZAP-Drag Nylon Belt Impact_B00M_CMCK" ID="{39D4D6D0-AEFE-4A2A-83E4-11C3E4A1556F}">
+									<Language>SFX</Language>
+									<AudioFile>WWISEInput\WHSH_ZAP-Drag Nylon Belt Impact_B00M_CMCK.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="789971308"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="WHSH_ZAP-Drag Nylon Belt Impact_B00M_CMCK" ID="{39D4D6D0-AEFE-4A2A-83E4-11C3E4A1556F}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="WHSH_ZAP-Drag Nylon Belt Large Snap_B00M_CMCK" ID="{5DD75C88-0AFF-4388-81E4-795DF9E25CF2}" ShortID="565665272">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4046FAEA-AD8B-4C98-86B5-54EA55A1E4D8}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A6C5CC46-401C-4964-B657-9D65D8D1357F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="WHSH_ZAP-Drag Nylon Belt Large Snap_B00M_CMCK" ID="{2F7C25FD-0F41-4120-9F5E-A4E5A74A0ADC}">
+									<Language>SFX</Language>
+									<AudioFile>WWISEInput\WHSH_ZAP-Drag Nylon Belt Large Snap_B00M_CMCK.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="403272052"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="WHSH_ZAP-Drag Nylon Belt Large Snap_B00M_CMCK" ID="{2F7C25FD-0F41-4120-9F5E-A4E5A74A0ADC}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="WHSH_ZAP-Drag Nylon Belt Short_B00M_CMCK" ID="{2C2A17D6-825E-4F63-BBD2-E9ED0FEF2067}" ShortID="922938150">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4046FAEA-AD8B-4C98-86B5-54EA55A1E4D8}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A6C5CC46-401C-4964-B657-9D65D8D1357F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="WHSH_ZAP-Drag Nylon Belt Short_B00M_CMCK" ID="{70A759B5-5F00-4623-9E34-51CF05D8672C}">
+									<Language>SFX</Language>
+									<AudioFile>WWISEInput\WHSH_ZAP-Drag Nylon Belt Short_B00M_CMCK.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="814936421"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="WHSH_ZAP-Drag Nylon Belt Short_B00M_CMCK" ID="{70A759B5-5F00-4623-9E34-51CF05D8672C}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="WHSH_ZAP-Drag Nylon Belt Snap_B00M_CMCK" ID="{1876B6BF-EC53-413B-9725-8FC4474FDC48}" ShortID="159547612">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4046FAEA-AD8B-4C98-86B5-54EA55A1E4D8}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A6C5CC46-401C-4964-B657-9D65D8D1357F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="WHSH_ZAP-Drag Nylon Belt Snap_B00M_CMCK" ID="{7D6B5F00-FEEF-4374-9407-43CD5DCCEEED}">
+									<Language>SFX</Language>
+									<AudioFile>WWISEInput\WHSH_ZAP-Drag Nylon Belt Snap_B00M_CMCK.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="110645167"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="WHSH_ZAP-Drag Nylon Belt Snap_B00M_CMCK" ID="{7D6B5F00-FEEF-4374-9407-43CD5DCCEEED}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="WHSH_ZAP-Drag Nylon Belt Tonal_B00M_CMCK" ID="{ECD8D6FF-F9F9-4B4C-942F-6FA68085385A}" ShortID="753143989">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4046FAEA-AD8B-4C98-86B5-54EA55A1E4D8}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A6C5CC46-401C-4964-B657-9D65D8D1357F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="WHSH_ZAP-Drag Nylon Belt Tonal_B00M_CMCK" ID="{004B47FE-ED4E-4838-B249-A9C8A59A27F4}">
+									<Language>SFX</Language>
+									<AudioFile>WWISEInput\WHSH_ZAP-Drag Nylon Belt Tonal_B00M_CMCK.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="654710744"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="WHSH_ZAP-Drag Nylon Belt Tonal_B00M_CMCK" ID="{004B47FE-ED4E-4838-B249-A9C8A59A27F4}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="WHSH_ZAP-Drag Rope Impact_B00M_CMCK" ID="{4531A968-1BDA-4147-A15E-096F0EF77ACF}" ShortID="779246792">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4046FAEA-AD8B-4C98-86B5-54EA55A1E4D8}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A6C5CC46-401C-4964-B657-9D65D8D1357F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="WHSH_ZAP-Drag Rope Impact_B00M_CMCK" ID="{72AE8A07-B001-431C-A258-D221F2280DDF}">
+									<Language>SFX</Language>
+									<AudioFile>WWISEInput\WHSH_ZAP-Drag Rope Impact_B00M_CMCK.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="738687733"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="WHSH_ZAP-Drag Rope Impact_B00M_CMCK" ID="{72AE8A07-B001-431C-A258-D221F2280DDF}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="WHSH_ZAP-Drag Umbrella Cover_B00M_CMCK" ID="{52620AB4-3AE9-484C-BC4D-22AEABD61811}" ShortID="718668003">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4046FAEA-AD8B-4C98-86B5-54EA55A1E4D8}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A6C5CC46-401C-4964-B657-9D65D8D1357F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="WHSH_ZAP-Drag Umbrella Cover_B00M_CMCK" ID="{8DC1FF2D-55D2-4CF8-9924-D24C0D79A524}">
+									<Language>SFX</Language>
+									<AudioFile>WWISEInput\WHSH_ZAP-Drag Umbrella Cover_B00M_CMCK.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="278373873"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="WHSH_ZAP-Drag Umbrella Cover_B00M_CMCK" ID="{8DC1FF2D-55D2-4CF8-9924-D24C0D79A524}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="WHSH_ZAP-Drag Whip Snap_B00M_CMCK" ID="{17E8E39B-0C04-41E1-AA22-2EBFC77A862F}" ShortID="804121292">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4046FAEA-AD8B-4C98-86B5-54EA55A1E4D8}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A6C5CC46-401C-4964-B657-9D65D8D1357F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="WHSH_ZAP-Drag Whip Snap_B00M_CMCK" ID="{3B128E7C-382C-4CFA-BF14-554A4B73774D}">
+									<Language>SFX</Language>
+									<AudioFile>WWISEInput\WHSH_ZAP-Drag Whip Snap_B00M_CMCK.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="768495068"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="WHSH_ZAP-Drag Whip Snap_B00M_CMCK" ID="{3B128E7C-382C-4CFA-BF14-554A4B73774D}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="WHSH_ZAP-Drag Zipper Snap_B00M_CMCK" ID="{8E1457A6-3278-4836-BE55-44E36B93FA7A}" ShortID="271213485">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4046FAEA-AD8B-4C98-86B5-54EA55A1E4D8}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A6C5CC46-401C-4964-B657-9D65D8D1357F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="WHSH_ZAP-Drag Zipper Snap_B00M_CMCK" ID="{EF3663C6-C2FB-46FA-9CB4-0D82D0492FF7}">
+									<Language>SFX</Language>
+									<AudioFile>WWISEInput\WHSH_ZAP-Drag Zipper Snap_B00M_CMCK.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="935716962"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="WHSH_ZAP-Drag Zipper Snap_B00M_CMCK" ID="{EF3663C6-C2FB-46FA-9CB4-0D82D0492FF7}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="WHSH_ZAP-Unfold Chamois Snap_B00M_CMCK" ID="{2A5E32D9-6137-488B-A7D7-63F0E9D8C12B}" ShortID="944038641">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4046FAEA-AD8B-4C98-86B5-54EA55A1E4D8}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A6C5CC46-401C-4964-B657-9D65D8D1357F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="WHSH_ZAP-Unfold Chamois Snap_B00M_CMCK" ID="{BC6D0DA8-AA07-47B9-8B03-7B9B52FC79D2}">
+									<Language>SFX</Language>
+									<AudioFile>WWISEInput\WHSH_ZAP-Unfold Chamois Snap_B00M_CMCK.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="181937854"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="WHSH_ZAP-Unfold Chamois Snap_B00M_CMCK" ID="{BC6D0DA8-AA07-47B9-8B03-7B9B52FC79D2}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="WHSH_ZAP-Unfold Nylon Bag Snap Short_B00M_CMCK" ID="{A4AD072F-F194-4B79-B3A6-C4BD00EC16CE}" ShortID="975263">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4046FAEA-AD8B-4C98-86B5-54EA55A1E4D8}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A6C5CC46-401C-4964-B657-9D65D8D1357F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="WHSH_ZAP-Unfold Nylon Bag Snap Short_B00M_CMCK" ID="{863EC029-1DB6-4CF3-A51F-2249F436CDF8}">
+									<Language>SFX</Language>
+									<AudioFile>WWISEInput\WHSH_ZAP-Unfold Nylon Bag Snap Short_B00M_CMCK.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="195294000"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="WHSH_ZAP-Unfold Nylon Bag Snap Short_B00M_CMCK" ID="{863EC029-1DB6-4CF3-A51F-2249F436CDF8}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="WHSH_ZAP-Unfold Nylon Bag Snap_B00M_CMCK" ID="{406039FF-5ED3-47BE-8475-5676353FDAA2}" ShortID="244100852">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4046FAEA-AD8B-4C98-86B5-54EA55A1E4D8}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A6C5CC46-401C-4964-B657-9D65D8D1357F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="WHSH_ZAP-Unfold Nylon Bag Snap_B00M_CMCK" ID="{91450E7C-766C-4221-B4B8-F9EE594F5CB9}">
+									<Language>SFX</Language>
+									<AudioFile>WWISEInput\WHSH_ZAP-Unfold Nylon Bag Snap_B00M_CMCK.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="855234943"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="WHSH_ZAP-Unfold Nylon Bag Snap_B00M_CMCK" ID="{91450E7C-766C-4221-B4B8-F9EE594F5CB9}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="WHSH_ZAP-Unfold Nylon Umbrella Snap_B00M_CMCK" ID="{C66B899A-6DC2-4712-B446-79CC3AB40B6D}" ShortID="855514565">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{4046FAEA-AD8B-4C98-86B5-54EA55A1E4D8}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{A6C5CC46-401C-4964-B657-9D65D8D1357F}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="WHSH_ZAP-Unfold Nylon Umbrella Snap_B00M_CMCK" ID="{076EE7BA-4C90-41B6-B389-A4DC420EC225}">
+									<Language>SFX</Language>
+									<AudioFile>WWISEInput\WHSH_ZAP-Unfold Nylon Umbrella Snap_B00M_CMCK.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="29458611"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="WHSH_ZAP-Unfold Nylon Umbrella Snap_B00M_CMCK" ID="{076EE7BA-4C90-41B6-B389-A4DC420EC225}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>
