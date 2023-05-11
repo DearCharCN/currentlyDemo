@@ -14,6 +14,10 @@ namespace Threading
         bool _isEnable = false;
         bool _needEnable = true;
 
+        public ThreadContainer() : this(true)
+        {
+        }
+
         public ThreadContainer(bool Active)
         {
             SetActive(Active);
