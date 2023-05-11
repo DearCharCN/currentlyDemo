@@ -43,7 +43,7 @@ namespace Net.Tcp
             byte[] data = encoding.GetBytes(msg);
 
             var channels = Channels;
-            TcpClient[] tcpClients = ToClients(channels);
+            TcpClient[] tcpClients = TcpInternalUtls.ToClients(channels);
             SendPackage(tcpClients, data);
         }
 
@@ -147,7 +147,7 @@ namespace Net.Tcp
         {
             if (readhandle == null)
             {
-                readhandle = reader.Read(ToClients(Channels));
+                readhandle = reader.Read(TcpInternalUtls.ToClients(Channels));
             }
             else
             {
@@ -180,17 +180,6 @@ namespace Net.Tcp
                     --i;
                 }
             }
-        }
-
-        private TcpClient[] ToClients(TcpChannel[] tcpChannels)
-        {
-            TcpClient[] result = new TcpClient[tcpChannels.Length];
-            for (int i=0;i< tcpChannels.Length;i++)
-            {
-                TcpChannel channel = tcpChannels[i];
-                result[i] = channel.client;
-            }
-            return result;
         }
     }
 
