@@ -4,7 +4,7 @@ using System;
 using System.Text;
 using System.Reflection;
 
-namespace Net.Tcp
+namespace DearChar.Net.Tcp
 {
     public class PkgCutterTester : MonoBehaviour
     {

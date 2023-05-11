@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 
-namespace Net.Tcp
+namespace DearChar.Net.Tcp
 {
     internal class TcpServerWithCallback : TcpServer
     {

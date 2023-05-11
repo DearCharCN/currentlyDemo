@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Threading
+namespace DearChar.Threading
 {
     public class UnityThread
     {

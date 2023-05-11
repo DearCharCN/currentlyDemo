@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
-using Threading;
+using DearChar.Threading;
 
-namespace Net.Tcp
+namespace DearChar.Net.Tcp
 {
     internal class TcpSender : ThreadContainer
     {

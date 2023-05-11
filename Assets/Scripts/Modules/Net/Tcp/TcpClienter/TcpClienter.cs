@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using Threading;
+using DearChar.Threading;
 
-namespace Net.Tcp
+namespace DearChar.Net.Tcp
 {
     internal class TcpClienter : ThreadContainer
     {

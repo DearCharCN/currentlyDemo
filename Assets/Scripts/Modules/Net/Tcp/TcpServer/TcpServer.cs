@@ -1,12 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using Threading;
+using DearChar.Threading;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace Net.Tcp
+namespace DearChar.Net.Tcp
 {
     internal class TcpServer : ThreadContainer
     {

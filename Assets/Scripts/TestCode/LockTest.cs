@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Threading;
+using DearChar.Threading;
 
 public class LockTest : MonoBehaviour
 {

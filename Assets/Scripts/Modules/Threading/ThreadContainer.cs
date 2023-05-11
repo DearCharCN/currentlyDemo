@@ -1,6 +1,6 @@
 using System.Threading;
 
-namespace Threading
+namespace DearChar.Threading
 {
     public class ThreadContainer
     {

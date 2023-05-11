@@ -1,4 +1,4 @@
-namespace Net.Tcp
+namespace DearChar.Net.Tcp
 {
     public enum DeviceNetType
     {

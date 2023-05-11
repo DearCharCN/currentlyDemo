@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace Net
+namespace DearChar.Net
 {
     public static class NetConfigration
     {

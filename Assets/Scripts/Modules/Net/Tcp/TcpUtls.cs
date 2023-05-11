@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Net.Sockets;
-using UnityEngine;
 
 
-namespace Net.Tcp
+namespace DearChar.Net.Tcp
 {
     public static class TcpUtls
     {
