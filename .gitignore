@@ -1,7 +1,7 @@
 .vs/
 Library/*
-Logs/
 obj/
+Assets/Wwise/
 Temp/
 build/
 .vsconfig
