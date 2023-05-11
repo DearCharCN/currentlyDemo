@@ -1,7 +1,9 @@
 .vs/
 Library/*
 obj/
-Assets/Wwise/
+Logs/
+Assets/Wwise/API
+Assets/Wwise/API.meta
 Temp/
 build/
 .vsconfig
