@@ -1,0 +1,16 @@
+{
+    "name": "DearChar.Audio",
+    "rootNamespace": "DearChar.Audio",
+    "references": [
+        "GUID:34160140b9ecbfc40a1eabd8f1ea5029"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

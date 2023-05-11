@@ -1,0 +1,16 @@
+{
+    "name": "DearChar.Threading",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0b3b1ab449885fa43b149e8cf9d2f3fc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
