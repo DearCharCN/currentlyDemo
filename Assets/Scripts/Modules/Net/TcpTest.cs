@@ -1,18 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.Net;
-using System.Net.Sockets;
 using System;
-using System.Threading;
 using System.Text;
 using System.Reflection;
 
 namespace Net.Tcp
 {
-    public class TcpTest : MonoBehaviour
+    public class PkgCutterTester : MonoBehaviour
     {
-        TcpServerListener_Old tcpServerListener;
-        TcpClienter_Old tcpClienter;
 
         MethodInfo GetPackagesMethod = typeof(TcpReader).GetMethod("GetPackages");
 
@@ -110,115 +105,6 @@ namespace Net.Tcp
 
         private void OnDestroy()
         {
-            //tcpServerListener.Stop();
-            //tcpClienter.Stop();
-        }
-    }
-
-    internal class TcpServerListener_Old
-    {
-        Thread thread;
-
-        public TcpServerListener_Old()
-        {
-            thread = new Thread(ThreadMain);
-            thread.Start();
-        }
-
-        public void Stop()
-        {
-            isNeedStop = true;
-        }
-
-        bool isNeedStop = false;
-        private void ThreadMain()
-        {
-            TcpListener tcpListener = new TcpListener(IPAddress.Parse("127.0.0.1"), 9000);
-            tcpListener.Start();
-            NetworkStream stream = null;
-            TcpClient client = null;
-
-            if (tcpListener.Pending())
-            {
-                client = tcpListener.AcceptTcpClient();
-                Debug.Log("[Server] Connected");
-                stream = client.GetStream();
-            }
-            tcpListener.Stop();
-
-            while (client.Connected && !isNeedStop)
-            {
-                string str = $"我是服务端： {DateTime.Now}";
-                byte[] datas = Encoding.UTF8.GetBytes(str);
-                stream.Write(datas, 0, datas.Length);
-                Debug.Log($"[Server] send msg {str}");
-
-                if (stream.DataAvailable)
-                {
-                    byte[] buffer = new byte[1024];
-                    int len = stream.Read(buffer, 0, buffer.Length);
-
-                    string message = Encoding.UTF8.GetString(buffer, 0, len);
-                    UnityEngine.Debug.Log($"[Server] Recive msg {message}");
-                }
-            }
-
-            if (client.Connected)
-            {
-                client.Dispose();
-            }
-            Debug.Log($"[Server] Stop");
-        }
-    }
-
-    internal class TcpClienter_Old
-    {
-        Thread thread;
-
-        public TcpClienter_Old()
-        {
-            thread = new Thread(ThreadMain);
-            thread.Start();
-        }
-
-        public void Stop()
-        {
-            isNeedStop = true;
-        }
-
-        bool isNeedStop = false;
-
-        public void ThreadMain()
-        {
-            TcpClient tcpClient = new TcpClient();
-            tcpClient.Connect("127.0.0.1", 9000);
-            Debug.Log($"[Client] Connected");
-            NetworkStream netStream = tcpClient.GetStream();
-
-            while (tcpClient.Connected && !isNeedStop)
-            {
-                string str = $"当前客户端时间： {DateTime.Now}";
-                byte[] datas = Encoding.UTF8.GetBytes(str);
-                netStream.Write(datas, 0, datas.Length);
-                Debug.Log($"[Client] send msg {str}");
-
-                if (netStream.DataAvailable)
-                {
-                    byte[] buffer = new byte[1024];
-                    int len = netStream.Read(buffer, 0, buffer.Length);
-
-                    string message = Encoding.UTF8.GetString(buffer, 0, len);
-                    UnityEngine.Debug.Log($"[Client] Recive msg {message}");
-                }
-
-            }
-
-
-
-
-            netStream.Close();
-            tcpClient.Close();
-            Debug.Log($"[Client] Stop");
         }
     }
 }
