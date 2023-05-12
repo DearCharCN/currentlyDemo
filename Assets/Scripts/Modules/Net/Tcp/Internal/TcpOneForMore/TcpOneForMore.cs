@@ -45,6 +45,11 @@ namespace DearChar.Net.Tcp
             }
             byte[] data = encoding.GetBytes(msg);
 
+            BroadPackage(data);
+        }
+
+        public void BroadPackage(byte[] data)
+        {
             var channels = Channels;
             TcpClient[] tcpClients = TcpInternalUtls.ToClients(channels);
             SendPackage(tcpClients, data);
@@ -217,8 +222,8 @@ namespace DearChar.Net.Tcp
         }
     }
 
-    internal class TcpChannel
+    public class TcpChannel
     {
-        internal TcpClient client;
+        public TcpClient client;
     }
 }

@@ -34,6 +34,11 @@ namespace DearChar.Threading
 
         public void Destroy()
         {
+            if(_gotoDestroy)
+            {
+                return;
+            }
+
             _gotoDestroy = true;
             UnityPlayingThreadManager.OnContainerDestroy(this);
         }

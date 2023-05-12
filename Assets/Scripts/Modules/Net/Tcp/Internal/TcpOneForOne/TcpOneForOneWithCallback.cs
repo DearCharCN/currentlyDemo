@@ -39,7 +39,7 @@ namespace DearChar.Net.Tcp
             {
                 EventData eventData = new EventData()
                 {
-                    channel = ServerChannel,
+                    channel = Channel,
                     eventType = EventType.OnConnected,
                     data = null,
                 };
@@ -70,7 +70,7 @@ namespace DearChar.Net.Tcp
                     {
                         EventData eventData = new EventData()
                         {
-                            channel = ServerChannel,
+                            channel = Channel,
                             eventType = EventType.OnReadEnd,
                             data = item,
                         };
@@ -95,7 +95,7 @@ namespace DearChar.Net.Tcp
                     {
                         EventData eventData = new EventData()
                         {
-                            channel = ServerChannel,
+                            channel = Channel,
                             eventType = EventType.OnDisConnected,
                             data = null,
                         };

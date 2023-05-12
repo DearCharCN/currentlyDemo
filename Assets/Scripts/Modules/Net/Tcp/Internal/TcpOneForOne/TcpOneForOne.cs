@@ -16,7 +16,7 @@ namespace DearChar.Net.Tcp
         IPAddress address;
         int port;
 
-        public TcpChannel ServerChannel
+        public TcpChannel Channel
         {
             get
             {
