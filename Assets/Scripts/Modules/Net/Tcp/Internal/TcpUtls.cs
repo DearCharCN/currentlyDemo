@@ -1,13 +1,7 @@
 using System.Net.Sockets;
 
-
 namespace DearChar.Net.Tcp
 {
-    public static class TcpUtls
-    {
-
-    }
-
     internal static class TcpInternalUtls
     {
         internal static TcpClient[] ToClients(TcpChannel[] tcpChannels)
