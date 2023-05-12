@@ -1,3 +1,4 @@
+using DearChar;
 using System;
 using System.Collections.Generic;
 
@@ -109,4 +110,118 @@ public static class ArrayUtls
         }
         return r.ToArray();
     }
+
+    public static void For<T>(this T[] array, Action<T> forCall)
+    {
+        array.For((item, index) =>
+        {
+            forCall?.Invoke(item);
+        });
+    }
+
+    public static void For<T>(this T[] array, Action<T, int> forCall)
+    {
+        array.For((item, index, len) =>
+        {
+            forCall?.Invoke(item, index);
+        });
+    }
+
+    public static void For<T>(this T[] array, Action<T, int, int> forCall)
+    {
+        array.For((item, index, len) =>
+        {
+            forCall?.Invoke(item, index, len);
+            return ForMethodResult.Continue;
+        });
+    }
+
+    public static void For<T>(this T[] array, Func<T, int, int, ForMethodResult> forCall)
+    {
+        if (array == null || array.Length == 0)
+        {
+            return;
+        }
+
+        for (int i = 0; i < array.Length; ++i)
+        {
+            try
+            {
+                ForMethodResult forMethodResult = forCall.Invoke(array[i], i, array.Length);
+                if (forMethodResult == ForMethodResult.Continue)
+                {
+                    continue;
+                }
+                else if (forMethodResult == ForMethodResult.Break)
+                {
+                    break;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return;
+            }
+        }
+    }
+
+    public static void For<T>(this List<T> array, Action<T> forCall)
+    {
+        array.For((item, index) =>
+        {
+            forCall?.Invoke(item);
+        });
+    }
+
+    public static void For<T>(this List<T> array, Action<T, int> forCall)
+    {
+        array.For((item, index, len) =>
+        {
+            forCall?.Invoke(item, index);
+        });
+    }
+
+    public static void For<T>(this List<T> array, Action<T, int, int> forCall)
+    {
+        array.For((item, index, len) =>
+        {
+            forCall?.Invoke(item, index, len);
+            return ForMethodResult.Continue;
+        });
+    }
+
+    public static void For<T>(this List<T> array, Func<T, int, int, ForMethodResult> forCall)
+    {
+        if (array == null || array.Count == 0)
+        {
+            return;
+        }
+
+        for (int i = 0; i < array.Count; ++i)
+        {
+            try
+            {
+                ForMethodResult forMethodResult = forCall.Invoke(array[i], i, array.Count);
+                if (forMethodResult == ForMethodResult.Continue)
+                {
+                    continue;
+                }
+                else if (forMethodResult == ForMethodResult.Break)
+                {
+                    break;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return;
+            }
+        }
+    }
+}
+
+public enum ForMethodResult
+{
+    Continue,
+    Break,
 }

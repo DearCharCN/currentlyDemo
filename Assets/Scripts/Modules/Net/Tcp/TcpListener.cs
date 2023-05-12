@@ -13,7 +13,7 @@ namespace DearChar.Net.Tcp
 
         Queue<TcpClient> connectedCaches;
 
-        public TcpListener(IPAddress iPAddress, int port, bool Active = true) : base(Active)
+        public TcpListener(IPAddress iPAddress, int port) : base()
         {
             this.port = port;
             this.address = iPAddress;

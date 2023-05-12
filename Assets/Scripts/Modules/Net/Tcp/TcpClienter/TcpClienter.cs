@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -14,6 +15,26 @@ namespace DearChar.Net.Tcp
 
         IPAddress address;
         int port;
+
+        public TcpChannel ServerChannel
+        {
+            get
+            {
+                return serverChannel;
+            }
+        }
+
+        public bool Connected
+        {
+            get
+            {
+                if(serverChannel == null)
+                    return false;
+                return TcpInternalUtls.ToClient(serverChannel).Connected;
+            }
+        }
+
+        
 
         public TcpClienter(IPAddress iPAddress, int port, bool Active = true) : base(Active)
         {

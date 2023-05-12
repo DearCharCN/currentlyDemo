@@ -3,12 +3,20 @@ using DearChar.Threading;
 
 public class LockTest : MonoBehaviour
 {
-    ThreadTesterer threadTesterer1 = new ThreadTesterer();
-    ThreadTesterer threadTesterer2 = new ThreadTesterer();
+    ThreadTesterer threadTesterer1;
+    ThreadTesterer threadTesterer2;
+
+    private void Awake()
+    {
+        threadTesterer1 = new ThreadTesterer();
+        threadTesterer1.SetActive(true);
+        threadTesterer2 = new ThreadTesterer();
+        threadTesterer2.SetActive(true);
+    }
 
     public void OnDo1()
     {
-        threadTesterer1.Doit(objLock,"A");
+        threadTesterer1.Doit(objLock, "A");
     }
     public void OnCancel1()
     {
@@ -17,7 +25,7 @@ public class LockTest : MonoBehaviour
 
     public void OnDo2()
     {
-        threadTesterer2.Doit(objLock,"B");
+        threadTesterer2.Doit(objLock, "B");
     }
     public void OnCancel2()
     {
@@ -32,7 +40,7 @@ public class ThreadTesterer : ThreadContainer
     object objLock;
     string msg;
     bool isDo = false;
-    public void Doit(object objLock,string msg)
+    public void Doit(object objLock, string msg)
     {
         this.objLock = objLock;
         this.msg = msg;
@@ -49,10 +57,7 @@ public class ThreadTesterer : ThreadContainer
         {
             lock (objLock)
             {
-                while (isDo)
-                {
-                    DODODO();
-                }
+                DODODO();
             }
         }
     }

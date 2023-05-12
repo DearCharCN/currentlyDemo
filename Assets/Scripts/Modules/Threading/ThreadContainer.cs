@@ -1,3 +1,4 @@
+using DearChar.Threading.Unity;
 using System.Threading;
 
 namespace DearChar.Threading
@@ -14,12 +15,13 @@ namespace DearChar.Threading
         bool _isEnable = false;
         bool _needEnable = true;
 
-        public ThreadContainer() : this(true)
+        public ThreadContainer() : this(false)
         {
         }
 
         public ThreadContainer(bool Active)
         {
+            UnityPlayingThreadManager.OnContainerCreate(this);
             SetActive(Active);
             _t = new Thread(Main);
             _t.Start();
@@ -33,6 +35,7 @@ namespace DearChar.Threading
         public void Destroy()
         {
             _gotoDestroy = true;
+            UnityPlayingThreadManager.OnContainerDestroy(this);
         }
 
         public bool IsActive { get => _isEnable; }

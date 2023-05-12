@@ -3,6 +3,8 @@ using DearChar.Threading;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System;
+using System.Net.Http;
 
 namespace DearChar.Net.Tcp
 {
@@ -18,13 +20,16 @@ namespace DearChar.Net.Tcp
         {
             get
             {
-                return connectedClient.ToArray();
+                lock(connectedClient)
+                {
+                    return connectedClient.ToArray();
+                }
             }
         }
 
-        public TcpServer(IPAddress iPAddress, int port, bool Active = true) : base(Active)
+        public TcpServer(IPAddress iPAddress, int port) : base()
         {
-            listener = new TcpListener(iPAddress, port, Active);
+            listener = new TcpListener(iPAddress, port);
             sender = new TcpSender();
             reader = new TcpReader();
             connectedClient = new List<TcpChannel>();
@@ -57,7 +62,7 @@ namespace DearChar.Net.Tcp
 
         public void SendPackage(TcpChannel channel, byte[] msg)
         {
-            TcpClient tcpClients = channel.client;
+            TcpClient tcpClients = TcpInternalUtls.ToClient(channel);
             SendPackage(new TcpClient[] { tcpClients }, msg);
         }
 
@@ -65,7 +70,7 @@ namespace DearChar.Net.Tcp
         {
             lock (readResultLock)
             {
-                var client = channel.client;
+                var client = TcpInternalUtls.ToClient(channel);
                 if (!readResult.ContainsKey(client))
                 {
                     return null;
@@ -87,10 +92,8 @@ namespace DearChar.Net.Tcp
                     if (kv.Value == null)
                         continue;
 
-                    TcpChannel channel = new TcpChannel()
-                    {
-                        client = kv.Key,
-                    };
+                    
+                    TcpChannel channel = TcpInternalUtls.ToChannel(kv.Key);
                     result[channel] = kv.Value.ToArray();
                 }
                 readResult.Clear();
@@ -100,9 +103,30 @@ namespace DearChar.Net.Tcp
 
         public void CloseChannel(TcpChannel channel)
         {
-            if (channel.client.Connected)
+            var client = TcpInternalUtls.ToClient(channel);
+            if (client.Connected)
             {
-                channel.client.Close();
+                client.Close();
+            }
+        }
+
+        public TcpChannel[] GetNewConnectChannel()
+        {
+            lock (newConnected)
+            {
+                var result = newConnected.ToArray();
+                result.Clone();
+                return result;
+            }
+        }
+
+        public TcpChannel[] GetAlreadlyDisconnected()
+        {
+            lock (disconnectList)
+            {
+                var result = disconnectList.ToArray();
+                disconnectList.Clear();
+                return result;
             }
         }
 
@@ -118,6 +142,8 @@ namespace DearChar.Net.Tcp
             ClearDisConnectedClients();
         }
 
+        List<TcpChannel> newConnected = new List<TcpChannel>();
+
         private void GetConnectClients()
         {
             var connted = listener.GetConnectedClients();
@@ -130,10 +156,14 @@ namespace DearChar.Net.Tcp
                     {
                         continue;
                     }
-                    connectedClient.Add(new TcpChannel()
+
+                    var channel = TcpInternalUtls.ToChannel(client);
+                    connectedClient.Add(channel);
+
+                    lock(newConnected)
                     {
-                        client = client
-                    });
+                        newConnected.Add(channel);
+                    }
                 }
             }
         }
@@ -167,15 +197,21 @@ namespace DearChar.Net.Tcp
             }
         }
 
+        List<TcpChannel> disconnectList = new List<TcpChannel>();
+
         private void ClearDisConnectedClients()
         {
             for (int i = 0; i < connectedClient.Count; i++)
             {
-                TcpClient tcpClient = connectedClient[i].client;
+                TcpClient tcpClient = TcpInternalUtls.ToClient(connectedClient[i]);
                 if (!tcpClient.Connected)
                 {
                     connectedClient.RemoveAt(i);
                     --i;
+                    lock(disconnectList)
+                    {
+                        disconnectList.Add(TcpInternalUtls.ToChannel(tcpClient));
+                    }
                 }
             }
         }
@@ -186,4 +222,3 @@ namespace DearChar.Net.Tcp
         internal TcpClient client;
     }
 }
-

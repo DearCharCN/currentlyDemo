@@ -1,25 +1,29 @@
 using System;
 using System.Net;
 using DearChar;
+using DearChar.Net.Tcp.Events;
+using static UnityEditor.Progress;
 
 namespace DearChar.Net.Tcp
 {
     internal class TcpClienterWithCallback : TcpClienter
     {
-        Action<byte[]> onReadEnd;
+        Action<EventData> onEvent;
+
+        bool _thinkConnect = false;
 
         public TcpClienterWithCallback(IPAddress iPAddress, int port, bool Active = true) : base(iPAddress, port, Active)
         {
         }
 
-        public void Addevent(Action<byte[]> e)
+        public void Addevent(Action<EventData> e)
         {
-            onReadEnd += e;
+            onEvent += e;
         }
 
-        public void RemoveEvent(Action<byte[]> e)
+        public void RemoveEvent(Action<EventData> e)
         {
-            onReadEnd -= e;
+            onEvent -= e;
         }
 
         public new byte[][] GetPackage()
@@ -27,10 +31,32 @@ namespace DearChar.Net.Tcp
             return null;
         }
 
+        protected override void Start()
+        {
+            base.Start();
+            _thinkConnect = true;
+            try
+            {
+                EventData eventData = new EventData()
+                {
+                    channel = ServerChannel,
+                    eventType = EventType.OnConnected,
+                    data = null,
+                };
+                onEvent?.Invoke(eventData);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+
+        }
+
         protected override void Update()
         {
             base.Update();
             DoCb();
+            CheckConnectType();
         }
 
         private void DoCb()
@@ -38,16 +64,51 @@ namespace DearChar.Net.Tcp
             var packages = GetPackage();
             if (packages != null && packages.Length > 0)
             {
-                for (int i = 0; i < packages.Length; i++)
+                packages.For((item) =>
                 {
                     try
                     {
-                        onReadEnd?.Invoke(packages[i]);
+                        EventData eventData = new EventData()
+                        {
+                            channel = ServerChannel,
+                            eventType = EventType.OnReadEnd,
+                            data = item,
+                        };
+                        onEvent?.Invoke(eventData);
                     }
                     catch (Exception e)
                     {
                         Debug.LogException(e);
                     }
+                });
+            }
+        }
+
+        private void CheckConnectType()
+        {
+            if (_thinkConnect && !Connected)
+            {
+                _thinkConnect = false;
+                try
+                {
+                    try
+                    {
+                        EventData eventData = new EventData()
+                        {
+                            channel = ServerChannel,
+                            eventType = EventType.OnDisConnected,
+                            data = null,
+                        };
+                        onEvent?.Invoke(eventData);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogException(e);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
                 }
             }
         }

@@ -1,26 +1,26 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using UnityEngine;
+using DearChar.Net.Tcp.Events;
 
 namespace DearChar.Net.Tcp
 {
     internal class TcpServerWithCallback : TcpServer
     {
-        Action<TcpChannel, byte[]> onReadEnd;
+        Action<EventData> onEvent;
 
-        public TcpServerWithCallback(IPAddress iPAddress, int port, bool Active = true) : base(iPAddress, port, Active)
+        public TcpServerWithCallback(IPAddress iPAddress, int port) : base(iPAddress, port)
         {
         }
 
-        public void Addevent(Action<TcpChannel, byte[]> e)
+        public void Addevent(Action<EventData> e)
         {
-            onReadEnd += e;
+            onEvent += e;
         }
 
-        public void RemoveEvent(Action<TcpChannel, byte[]> e)
+        public void RemoveEvent(Action<EventData> e)
         {
-            onReadEnd -= e;
+            onEvent -= e;
         }
 
         /// <summary>
@@ -28,6 +28,24 @@ namespace DearChar.Net.Tcp
         /// </summary>
         /// <returns></returns>
         public new Dictionary<TcpChannel, byte[][]> GetPackages()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// 这个方法不给用
+        /// </summary>
+        /// <returns></returns>
+        public new TcpChannel[] GetNewConnectChannel()
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// 这个方法不给用
+        /// </summary>
+        /// <returns></returns>
+        public new TcpChannel[] GetAlreadlyDisconnected()
         {
             return null;
         }
@@ -40,7 +58,14 @@ namespace DearChar.Net.Tcp
 
         private void DoCb()
         {
-            if (onReadEnd != null)
+            DoReadEndEvent();
+            DoOnConnectedEvent();
+            DoDisConnectedEvent();
+        }
+
+        private void DoReadEndEvent()
+        {
+            if (onEvent != null)
             {
                 Dictionary<TcpChannel, byte[][]> packages = base.GetPackages();
 
@@ -51,20 +76,76 @@ namespace DearChar.Net.Tcp
                     if (ds == null || ds.Length == 0)
                         continue;
 
-                    for (int i = 0; i < ds.Length; i++)
+                    ds.For((item, i) =>
                     {
                         try
                         {
-                            onReadEnd?.Invoke(c, ds[i]);
+                            EventData eventData = new EventData()
+                            {
+                                channel = c,
+                                eventType = EventType.OnReadEnd,
+                                data = ds[i],
+                            };
+                            onEvent?.Invoke(eventData);
                         }
                         catch (Exception e)
                         {
                             Debug.LogException(e);
                         }
-                    }
+                    });
                 }
+            }
+        }
+
+        private void DoOnConnectedEvent()
+        {
+            if (onEvent != null)
+            {
+                var channels = base.GetNewConnectChannel();
+                channels.For((channel) =>
+                {
+                    try
+                    {
+                        EventData eventData = new EventData()
+                        {
+                            channel = channel,
+                            eventType = EventType.OnConnected,
+                            data = null,
+                        };
+                        onEvent?.Invoke(eventData);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogException(e);
+                    }
+                });
+            }
+        }
+
+        private void DoDisConnectedEvent()
+        {
+            if (onEvent != null)
+            {
+                var channels = base.GetAlreadlyDisconnected();
+                channels.For((channel) =>
+                {
+                    try
+                    {
+                        EventData eventData = new EventData()
+                        {
+                            channel = channel,
+                            eventType = EventType.OnDisConnected,
+                            data = null,
+                        };
+                        onEvent?.Invoke(eventData);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogException(e);
+                    }
+
+                });
             }
         }
     }
 }
-
