@@ -5,11 +5,11 @@ using DearChar.Net.Tcp.Events;
 
 namespace DearChar.Net.Tcp
 {
-    internal class TcpServerWithCallback : TcpServer
+    internal class TcpOneForMoreWithCallback : TcpOneForMore
     {
         Action<EventData> onEvent;
 
-        public TcpServerWithCallback(IPAddress iPAddress, int port) : base(iPAddress, port)
+        public TcpOneForMoreWithCallback(IPAddress iPAddress, int port) : base(iPAddress, port)
         {
         }
 

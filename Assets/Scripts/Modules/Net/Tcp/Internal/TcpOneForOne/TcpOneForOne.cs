@@ -7,7 +7,7 @@ using DearChar.Threading;
 
 namespace DearChar.Net.Tcp
 {
-    internal class TcpClienter : ThreadContainer
+    internal class TcpOneForOne : ThreadContainer
     {
         TcpReader reader;
         TcpSender sender;
@@ -36,7 +36,7 @@ namespace DearChar.Net.Tcp
 
         
 
-        public TcpClienter(IPAddress iPAddress, int port, bool Active = true) : base(Active)
+        public TcpOneForOne(IPAddress iPAddress, int port, bool Active = true) : base(Active)
         {
             address = iPAddress;
             this.port = port;

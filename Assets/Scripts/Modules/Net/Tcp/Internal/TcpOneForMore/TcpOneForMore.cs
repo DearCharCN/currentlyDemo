@@ -8,7 +8,7 @@ using System.Net.Http;
 
 namespace DearChar.Net.Tcp
 {
-    internal class TcpServer : ThreadContainer
+    internal class TcpOneForMore : ThreadContainer
     {
         TcpListener listener;
         TcpSender sender;
@@ -27,7 +27,7 @@ namespace DearChar.Net.Tcp
             }
         }
 
-        public TcpServer(IPAddress iPAddress, int port) : base()
+        public TcpOneForMore(IPAddress iPAddress, int port) : base()
         {
             listener = new TcpListener(iPAddress, port);
             sender = new TcpSender();

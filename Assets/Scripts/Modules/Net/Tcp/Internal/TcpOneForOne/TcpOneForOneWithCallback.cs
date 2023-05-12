@@ -6,13 +6,13 @@ using static UnityEditor.Progress;
 
 namespace DearChar.Net.Tcp
 {
-    internal class TcpClienterWithCallback : TcpClienter
+    internal class TcpOneForOneWithCallback : TcpOneForOne
     {
         Action<EventData> onEvent;
 
         bool _thinkConnect = false;
 
-        public TcpClienterWithCallback(IPAddress iPAddress, int port, bool Active = true) : base(iPAddress, port, Active)
+        public TcpOneForOneWithCallback(IPAddress iPAddress, int port, bool Active = true) : base(iPAddress, port, Active)
         {
         }
 
