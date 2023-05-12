@@ -5,7 +5,7 @@ using DearChar.Threading;
 
 namespace DearChar.Net.Tcp
 {
-    internal partial class TcpReader: ThreadContainer
+    internal partial class TcpReader : ThreadContainer
     {
         internal TcpReader() : base(true)
         {
@@ -21,7 +21,7 @@ namespace DearChar.Net.Tcp
             return new TcpReadTaskHandle() { taskId = taskId };
         }
 
-        public bool TryGetResult(ITcpReadTaskHandle taskHandle,out Dictionary<TcpClient, byte[][]> result)
+        public bool TryGetResult(ITcpReadTaskHandle taskHandle, out Dictionary<TcpClient, byte[][]> result)
         {
             result = null;
             TcpReadTaskHandle handle = taskHandle as TcpReadTaskHandle;
@@ -77,11 +77,11 @@ namespace DearChar.Net.Tcp
             for (int i = 0; i < readTask.tcpClients.Length; i++)
             {
                 var client = readTask.tcpClients[i];
-                if(client.Connected)
+                if (client.Connected)
                 {
                     byte[][] bytes = DoRead(client);
 
-                    if(bytes != null)
+                    if (bytes != null)
                     {
                         taskResult.datas[client] = bytes;
                     }
@@ -119,7 +119,7 @@ namespace DearChar.Net.Tcp
             object lockObj = new object();
             public uint GetTaskId()
             {
-                lock(lockObj)
+                lock (lockObj)
                 {
                     uint id = currently;
                     while (usedTaskId.ContainsKey(id))

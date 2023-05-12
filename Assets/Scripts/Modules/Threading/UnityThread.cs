@@ -13,7 +13,7 @@ namespace DearChar.Threading
         {
             get
             {
-                if(m_driver == null)
+                if (m_driver == null)
                 {
                     m_driver = UnityDriver.Instance.AddComponent<UnityThreadDriver>();
                 }
@@ -29,7 +29,7 @@ namespace DearChar.Threading
 
     public class ThreadTask
     {
-       public Action cb;
+        public Action cb;
     }
 
 
@@ -45,7 +45,7 @@ namespace DearChar.Threading
         private void Update()
         {
             int count = m_tasks.Count;
-            for(int i=0;i<count;i++)
+            for (int i = 0; i < count; i++)
             {
                 var task = m_tasks.Dequeue();
                 DoTask(task);
@@ -58,7 +58,7 @@ namespace DearChar.Threading
             {
                 task.cb?.Invoke();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.LogException(e);
             }

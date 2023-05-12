@@ -5,15 +5,15 @@ using DearChar.Threading;
 
 namespace DearChar.Net.Tcp
 {
-    internal class TcpConnecter : ThreadContainer
+    internal class TcpListener : ThreadContainer
     {
-        TcpListener tcpListener;
+        System.Net.Sockets.TcpListener tcpListener;
         IPAddress address;
         int port;
 
-        Queue<TcpClient> tcpClients;
+        Queue<TcpClient> connectedCaches;
 
-        public TcpConnecter(IPAddress iPAddress, int port, bool Active = true) : base(Active)
+        public TcpListener(IPAddress iPAddress, int port, bool Active = true) : base(Active)
         {
             this.port = port;
             this.address = iPAddress;
@@ -21,11 +21,11 @@ namespace DearChar.Net.Tcp
 
         public TcpClient[] GetConnectedClients()
         {
+            int len = connectedCaches.Count;
             List<TcpClient> prepareList = new List<TcpClient>();
-            int len = tcpClients.Count;
             for (int i = 0; i < len; i++)
             {
-                var c = tcpClients.Dequeue();
+                var c = connectedCaches.Dequeue();
                 if (c.Connected)
                 {
                     prepareList.Add(c);
@@ -36,8 +36,8 @@ namespace DearChar.Net.Tcp
 
         protected override void Awake()
         {
-            tcpClients = new Queue<TcpClient>();
-            tcpListener = new TcpListener(address, port);
+            connectedCaches = new Queue<TcpClient>();
+            tcpListener = new System.Net.Sockets.TcpListener(address, port);
             tcpListener.Start();
         }
 
@@ -46,7 +46,7 @@ namespace DearChar.Net.Tcp
             if (tcpListener.Pending())
             {
                 var client = tcpListener.AcceptTcpClient();
-                tcpClients.Enqueue(client);
+                connectedCaches.Enqueue(client);
             }
         }
 

@@ -8,7 +8,7 @@ namespace DearChar.Net.Tcp
 {
     internal class TcpServer : ThreadContainer
     {
-        TcpConnecter connecter;
+        TcpListener listener;
         TcpSender sender;
         TcpReader reader;
 
@@ -22,19 +22,19 @@ namespace DearChar.Net.Tcp
             }
         }
 
-        public TcpServer(IPAddress iPAddress, int port,bool Active = true) : base(Active)
+        public TcpServer(IPAddress iPAddress, int port, bool Active = true) : base(Active)
         {
-            connecter = new TcpConnecter(iPAddress, port, Active);
+            listener = new TcpListener(iPAddress, port, Active);
             sender = new TcpSender();
             reader = new TcpReader();
             connectedClient = new List<TcpChannel>();
         }
 
-        
 
-        public void BroadPackage(string msg,Encoding encoding = null)
+
+        public void BroadPackage(string msg, Encoding encoding = null)
         {
-            if(encoding == null)
+            if (encoding == null)
             {
                 encoding = Encoding.UTF8;
             }
@@ -63,7 +63,7 @@ namespace DearChar.Net.Tcp
 
         public byte[][] GetPackage(TcpChannel channel)
         {
-            lock(readResultLock)
+            lock (readResultLock)
             {
                 var client = channel.client;
                 if (!readResult.ContainsKey(client))
@@ -100,7 +100,7 @@ namespace DearChar.Net.Tcp
 
         public void CloseChannel(TcpChannel channel)
         {
-            if(channel.client.Connected)
+            if (channel.client.Connected)
             {
                 channel.client.Close();
             }
@@ -120,13 +120,13 @@ namespace DearChar.Net.Tcp
 
         private void GetConnectClients()
         {
-            var connted = connecter.GetConnectedClients();
-            if(connted != null && connted.Length>0)
+            var connted = listener.GetConnectedClients();
+            if (connted != null && connted.Length > 0)
             {
                 for (int i = 0; i < connted.Length; i++)
                 {
                     var client = connted[i];
-                    if(!client.Connected)
+                    if (!client.Connected)
                     {
                         continue;
                     }
@@ -150,9 +150,9 @@ namespace DearChar.Net.Tcp
             else
             {
                 Dictionary<TcpClient, byte[][]> r;
-                if(reader.TryGetResult(readhandle,out r))
+                if (reader.TryGetResult(readhandle, out r))
                 {
-                    foreach(var kv in r)
+                    foreach (var kv in r)
                     {
                         lock (readResultLock)
                         {
@@ -169,10 +169,10 @@ namespace DearChar.Net.Tcp
 
         private void ClearDisConnectedClients()
         {
-            for(int i=0;i<connectedClient.Count;i++)
+            for (int i = 0; i < connectedClient.Count; i++)
             {
                 TcpClient tcpClient = connectedClient[i].client;
-                if(!tcpClient.Connected)
+                if (!tcpClient.Connected)
                 {
                     connectedClient.RemoveAt(i);
                     --i;
