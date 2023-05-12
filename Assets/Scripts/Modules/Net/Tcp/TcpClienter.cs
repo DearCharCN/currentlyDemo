@@ -1,11 +1,8 @@
-using DearChar.Net.Tcp;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Net;
-using UnityEngine;
+using System.Text;
 
-namespace DearChar.Threading
+namespace DearChar.Net.Tcp
 {
     public class TcpClienter : IDisposable
     {
@@ -33,14 +30,19 @@ namespace DearChar.Threading
             TcpOneForOne = new TcpOneForOne(IPAddress.Parse(ipArress), port);
         }
 
-        public void StartServer()
+        public void StartClienter()
         {
             TcpOneForOne.SetActive(true);
         }
 
-        public void StopServer()
+        public void StopClienter()
         {
             TcpOneForOne.SetActive(false);
+        }
+
+        public void Send(string msg,Encoding encoding = null)
+        {
+            TcpOneForOne.SendPackage(msg, encoding);
         }
 
         public void Send(byte[] data)

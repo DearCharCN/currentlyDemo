@@ -12,7 +12,7 @@ namespace DearChar.Net.Tcp
 
         bool _thinkConnect = false;
 
-        public TcpOneForOneWithCallback(IPAddress iPAddress, int port, bool Active = true) : base(iPAddress, port, Active)
+        public TcpOneForOneWithCallback(IPAddress iPAddress, int port) : base(iPAddress, port)
         {
         }
 

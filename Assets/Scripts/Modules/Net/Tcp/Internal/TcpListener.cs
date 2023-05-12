@@ -11,7 +11,7 @@ namespace DearChar.Net.Tcp
         IPAddress address;
         int port;
 
-        Queue<TcpClient> connectedCaches;
+        Queue<TcpClient> connectedCaches = new Queue<TcpClient>();
 
         public TcpListener(IPAddress iPAddress, int port) : base()
         {
@@ -36,7 +36,7 @@ namespace DearChar.Net.Tcp
 
         protected override void Awake()
         {
-            connectedCaches = new Queue<TcpClient>();
+            
             tcpListener = new System.Net.Sockets.TcpListener(address, port);
             tcpListener.Start();
         }

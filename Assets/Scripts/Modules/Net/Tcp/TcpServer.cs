@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Text;
 
 namespace DearChar.Net.Tcp
 {
@@ -37,6 +38,11 @@ namespace DearChar.Net.Tcp
             TcpOneForMore.SendPackage(tcpChannel, data);
         }
 
+        public void SendToAll(string msg,Encoding encoding = null)
+        {
+            TcpOneForMore.BroadPackage(msg, encoding);
+        }
+
         public void SendToAll(byte[] data)
         {
             TcpOneForMore.BroadPackage(data);
@@ -55,13 +61,13 @@ namespace DearChar.Net.Tcp
         public bool HasNewChannelConnected(out TcpChannel[] tcpChannels)
         {
             tcpChannels = TcpOneForMore.GetNewConnectChannel();
-            return tcpChannels != null;
+            return tcpChannels != null && tcpChannels.Length > 0;
         }
 
         public bool HasAlreadlyDisconnected(out TcpChannel[] tcpChannels)
         {
             tcpChannels = TcpOneForMore.GetAlreadlyDisconnected();
-            return tcpChannels != null;
+            return tcpChannels != null && tcpChannels.Length > 0;
         }
 
         public void Dispose() 

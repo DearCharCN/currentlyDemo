@@ -12,6 +12,9 @@ namespace DearChar.Net.Tcp
         }
         public ITcpReadTaskHandle Read(TcpClient[] tcpClients)
         {
+            if(tcpClients == null || tcpClients.Length <=0)
+                return null;
+
             uint taskId = taskIdAllocation.GetTaskId();
             readTasks.Enqueue(new ReadTask()
             {
@@ -29,14 +32,17 @@ namespace DearChar.Net.Tcp
             if (handle.isDispose)
                 throw new Exception("This handle is not vaid");
 
-            if (!taskResults.ContainsKey(handle.taskId))
+            lock(taskResults)
             {
-                return false;
+                if (!taskResults.ContainsKey(handle.taskId))
+                {
+                    return false;
+                }
+
+                result = taskResults[handle.taskId].datas;
+                taskResults.Remove(handle.taskId);
             }
 
-            result = taskResults[handle.taskId].datas;
-
-            taskResults.Remove(handle.taskId);
             taskIdAllocation.ReleseTaskId(handle.taskId);
             handle.isDispose = true;
             return true;
@@ -87,8 +93,11 @@ namespace DearChar.Net.Tcp
                     }
                 }
             }
-
-            taskResults[readTask.taskId] = taskResult;
+            lock(taskResults)
+            {
+                taskResults[readTask.taskId] = taskResult;
+            }
+            
         }
 
         private byte[][] DoRead(TcpClient tcpClient)

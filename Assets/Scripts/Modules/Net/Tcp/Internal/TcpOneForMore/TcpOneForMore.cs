@@ -14,7 +14,10 @@ namespace DearChar.Net.Tcp
         TcpSender sender;
         TcpReader reader;
 
-        List<TcpChannel> connectedClient;
+        IPAddress iPAddress;
+        int port;
+
+        List<TcpChannel> connectedClient = new List<TcpChannel>();
 
         public TcpChannel[] Channels
         {
@@ -29,10 +32,8 @@ namespace DearChar.Net.Tcp
 
         public TcpOneForMore(IPAddress iPAddress, int port) : base()
         {
-            listener = new TcpListener(iPAddress, port);
-            sender = new TcpSender();
-            reader = new TcpReader();
-            connectedClient = new List<TcpChannel>();
+            this.iPAddress = iPAddress;
+            this.port = port;
         }
 
 
@@ -73,7 +74,7 @@ namespace DearChar.Net.Tcp
 
         public byte[][] GetPackage(TcpChannel channel)
         {
-            lock (readResultLock)
+            lock (readResult)
             {
                 var client = TcpInternalUtls.ToClient(channel);
                 if (!readResult.ContainsKey(client))
@@ -90,7 +91,7 @@ namespace DearChar.Net.Tcp
         public Dictionary<TcpChannel, byte[][]> GetPackages()
         {
             Dictionary<TcpChannel, byte[][]> result = new Dictionary<TcpChannel, byte[][]>();
-            lock (readResultLock)
+            lock (readResult)
             {
                 foreach (var kv in readResult)
                 {
@@ -120,7 +121,7 @@ namespace DearChar.Net.Tcp
             lock (newConnected)
             {
                 var result = newConnected.ToArray();
-                result.Clone();
+                newConnected.Clear();
                 return result;
             }
         }
@@ -140,11 +141,51 @@ namespace DearChar.Net.Tcp
             sender.Send(tcpClients, bytes);
         }
 
+        protected override void Awake()
+        {
+            listener = new TcpListener(iPAddress, port);
+            sender = new TcpSender();
+            reader = new TcpReader();
+        }
+
+        protected override void OnEnable()
+        {
+            listener.SetActive(true);
+            sender.SetActive(true);
+            reader.SetActive(true);
+        }
+
+        protected override void OnDisable()
+        {
+            listener.SetActive(false);
+            sender.SetActive(false);
+            reader.SetActive(false);
+        }
+
         protected override void Update()
         {
             GetConnectClients();
             DoReadTask();
             ClearDisConnectedClients();
+        }
+
+        protected override void OnDestroy()
+        {
+            listener.Destroy();
+            sender.Destroy();
+            reader.Destroy();
+
+            connectedClient.For((item) =>
+            {
+                var client = TcpInternalUtls.ToClient(item);
+                if(client.Connected)
+                {
+                    client.Close();
+                    client.Dispose();
+
+                }
+            });
+            connectedClient.Clear();
         }
 
         List<TcpChannel> newConnected = new List<TcpChannel>();
@@ -175,7 +216,6 @@ namespace DearChar.Net.Tcp
 
         ITcpReadTaskHandle readhandle;
         Dictionary<TcpClient, List<byte[]>> readResult = new Dictionary<TcpClient, List<byte[]>>();
-        object readResultLock = new object();
         private void DoReadTask()
         {
             if (readhandle == null)
@@ -187,9 +227,10 @@ namespace DearChar.Net.Tcp
                 Dictionary<TcpClient, byte[][]> r;
                 if (reader.TryGetResult(readhandle, out r))
                 {
+                    readhandle = null;
                     foreach (var kv in r)
                     {
-                        lock (readResultLock)
+                        lock (readResult)
                         {
                             if (!readResult.ContainsKey(kv.Key))
                             {

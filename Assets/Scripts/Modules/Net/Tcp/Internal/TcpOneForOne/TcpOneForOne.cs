@@ -36,7 +36,7 @@ namespace DearChar.Net.Tcp
 
         
 
-        public TcpOneForOne(IPAddress iPAddress, int port, bool Active = true) : base(Active)
+        public TcpOneForOne(IPAddress iPAddress, int port) : base()
         {
             address = iPAddress;
             this.port = port;
@@ -59,23 +59,40 @@ namespace DearChar.Net.Tcp
 
         public byte[][] GetPackage()
         {
-            lock (readResultLock)
+            lock (readResult)
             {
                 if (readResult.Count > 0)
                 {
-                    return readResult.ToArray();
+                    var result = readResult.ToArray();
+                    readResult.Clear();
+                    return result;
                 }
                 return null;
             }
         }
 
-        protected override void Start()
+        protected override void Awake()
         {
             TcpClient tcpClient = new TcpClient();
-            tcpClient.Connect(address, port);
-            serverChannel = new TcpChannel() {client = tcpClient };
+            serverChannel = new TcpChannel() { client = tcpClient };
             sender = new TcpSender();
             reader = new TcpReader();
+            try
+            {
+                tcpClient.Connect(address, port);
+            }
+            catch (SocketException ex) 
+            {
+                Debug.LogException(ex);
+                SetActive(false);
+                return;
+            }
+        }
+
+        protected override void OnEnable()
+        {
+            sender.SetActive(true);
+            reader.SetActive(true);
         }
 
         protected override void Update()
@@ -83,9 +100,20 @@ namespace DearChar.Net.Tcp
             DoReadTask();
         }
 
+        protected override void OnDestroy()
+        {
+            sender.Destroy();
+            reader.Destroy();
+
+            var client = TcpInternalUtls.ToClient(serverChannel);
+            if(client.Connected)
+            {
+                client.Close();
+            }
+        }
+
         ITcpReadTaskHandle readhandle;
         List<byte[]> readResult = new List<byte[]>();
-        object readResultLock = new object();
         private void DoReadTask()
         {
             if (readhandle == null)
@@ -97,9 +125,10 @@ namespace DearChar.Net.Tcp
                 Dictionary<TcpClient, byte[][]> r;
                 if (reader.TryGetResult(readhandle, out r))
                 {
-                    foreach (var kv in r)
+                    readhandle = null;
+                    lock (readResult)
                     {
-                        lock (readResultLock)
+                        foreach (var kv in r)
                         {
                             readResult.AddRange(kv.Value);
                         }

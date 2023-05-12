@@ -13,7 +13,7 @@ namespace DearChar.Threading.Unity
             {
                 if (m_threadManagerForUnity == null)
                 {
-                    m_threadManagerForUnity = UnityDriver.Instance.AddComponent<ThreadManagerForUnity>();
+                    m_threadManagerForUnity = UnityDriver.GameObject.AddComponent<ThreadManagerForUnity>();
                 }
                 return m_threadManagerForUnity;
             }
@@ -23,51 +23,51 @@ namespace DearChar.Threading.Unity
         {
             threadManagerForUnity.OnContainerCreate(threadContainer);
         }
-
-        public static void OnContainerDestroy(ThreadContainer threadContainer)
-        {
-            threadManagerForUnity.OnContainerDestroy(threadContainer);
-        }
-
         protected class ThreadManagerForUnity : MonoBehaviour
         {
-            Dictionary<ThreadContainer, int> PlayingActiveContainer = new Dictionary<ThreadContainer, int>();
+            List<ThreadContainer> PlayingActiveContainer = new List<ThreadContainer>();
 
             internal void OnContainerCreate(ThreadContainer threadContainer)
             {
-                if (!UnityEngine.Application.isPlaying)
+                if (!UnityDriver.ApplicationIsPlayIng)
                     return;
 
                 lock (PlayingActiveContainer)
                 {
-                    PlayingActiveContainer[threadContainer] = 1;
+                    PlayingActiveContainer.Add(threadContainer);
                 }
             }
 
-            internal void OnContainerDestroy(ThreadContainer threadContainer)
+            float updateCount = 0;
+
+            private void Update()
             {
-                if(_ApplicationQuiting)
-                {
+                updateCount += Time.unscaledDeltaTime;
+                if (updateCount < 60)
                     return;
-                }
+                updateCount = 0;
 
-                lock (PlayingActiveContainer)
+                for (int i = 0; i < PlayingActiveContainer.Count; ++i)
                 {
-                    PlayingActiveContainer.Remove(threadContainer);
+                    if (PlayingActiveContainer[i].IsDestroy)
+                    {
+                        PlayingActiveContainer.RemoveAt(i);
+                        --i;
+                    }
                 }
             }
-
-            bool _ApplicationQuiting = false;
 
             private void OnDestroy()
             {
-                _ApplicationQuiting = true;
                 lock (PlayingActiveContainer)
                 {
-                    foreach (var kv in PlayingActiveContainer)
+                    PlayingActiveContainer.For((item) =>
                     {
-                        kv.Key.Destroy();
-                    }
+                        if(!item.IsDestroy)
+                        {
+                            item.Destroy();
+                        }
+                    });
                     PlayingActiveContainer.Clear();
                 }
             }

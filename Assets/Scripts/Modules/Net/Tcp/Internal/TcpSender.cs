@@ -7,20 +7,18 @@ namespace DearChar.Net.Tcp
 {
     internal class TcpSender : ThreadContainer
     {
-        public TcpSender() : base(true)
-        {
-            tasks = new Queue<SendTask>();
-        }
-
-        Queue<SendTask> tasks;
+        Queue<SendTask> tasks = new Queue<SendTask>();
 
         public void Send(TcpClient[] tcpClients, byte[] content)
         {
-            tasks.Enqueue(new SendTask()
+            lock(tasks)
             {
-                tcpClients = tcpClients,
-                content = content
-            });
+                tasks.Enqueue(new SendTask()
+                {
+                    tcpClients = tcpClients,
+                    content = content
+                });
+            }
         }
 
         class SendTask
@@ -31,10 +29,13 @@ namespace DearChar.Net.Tcp
 
         protected override void Update()
         {
-            if (tasks.Count > 0)
+            lock(tasks)
             {
-                var t = tasks.Dequeue();
-                DoSend(t.tcpClients, t.content);
+                if (tasks.Count > 0)
+                {
+                    var t = tasks.Dequeue();
+                    DoSend(t.tcpClients, t.content);
+                }
             }
         }
 

@@ -40,7 +40,6 @@ namespace DearChar.Threading
             }
 
             _gotoDestroy = true;
-            UnityPlayingThreadManager.OnContainerDestroy(this);
         }
 
         public bool IsActive { get => _isEnable; }
@@ -82,7 +81,11 @@ namespace DearChar.Threading
                     }
                 }
             }
-            OnDestroy();
+            if(_isRunedAwake)//如果没有执行过Awake,就销毁,不执行Destroy
+            {
+                OnDestroy();
+            }
+            
 
             _isDestroy = true;
             _t.Abort();

@@ -14,7 +14,7 @@ namespace DearChar.Threading.Unity
             {
                 if (m_driver == null)
                 {
-                    m_driver = UnityDriver.Instance.AddComponent<UnityThreadDriver>();
+                    m_driver = UnityDriver.GameObject.AddComponent<UnityThreadDriver>();
                 }
                 return m_driver;
             }
