@@ -1,8 +1,6 @@
 using System;
 using System.Net;
-using DearChar;
 using DearChar.Net.Tcp.Events;
-using static UnityEditor.Progress;
 
 namespace DearChar.Net.Tcp
 {
